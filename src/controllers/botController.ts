@@ -4,14 +4,14 @@ import {
   UpdateType,
 } from "https://deno.land/x/telegram_bot_api@0.4.0/mod.ts";
 import { Request, Response } from "https://deno.land/x/oak@v11.1.0/mod.ts";
-import { config } from "https://deno.land/std@0.161.0/dotenv/mod.ts";
-console.log(Deno.env.get("COINS"));
-const env = await config({ export: true, allowEmptyValues: true });
-console.log(Deno.env.get("COINS"));
+// import { config } from "https://deno.land/std@0.161.0/dotenv/mod.ts";
+console.log(Deno.env.get("TELEGRAM_TOKEN"));
+// const env = await config({ export: true, allowEmptyValues: true });
+console.log(Deno.env.get("IDS"));
 
-const token = env.TELEGRAM_TOKEN;
-const ids = env.IDS;
-const coinGeckoUri = env.COIN_GECKO_URI;
+const token = Deno.env.get("TELEGRAM_TOKEN") as string;
+const ids = Deno.env.get("IDS");
+const coinGeckoUri = Deno.env.get("COIN_GECKO_URI");
 
 const bot = new TelegramBot(token);
 
@@ -59,7 +59,7 @@ const getCurrentState = async (): Promise<
   );
   const tokens: ITokenRes = await res.json();
 
-  const coins: ICoin[] = JSON.parse(env.COINS);
+  const coins: ICoin[] = JSON.parse(Deno.env.get("COINS") as string);
 
   return coins.map((x) => {
     const currentPrice =
