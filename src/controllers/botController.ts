@@ -4,9 +4,9 @@ import {
   UpdateType,
 } from "https://deno.land/x/telegram_bot_api@0.4.0/mod.ts";
 import { Request, Response } from "https://deno.land/x/oak@v11.1.0/mod.ts";
-import { config } from "https://deno.land/x/dotenv@v3.2.0/mod.ts";
+import { config } from "https://deno.land/std@0.161.0/dotenv/mod.ts";
 
-const env = config({ export: true });
+const env = await config({ export: true });
 
 const token = env.TELEGRAM_TOKEN;
 const ids = env.IDS;
