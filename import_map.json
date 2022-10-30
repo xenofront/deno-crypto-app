@@ -10,6 +10,6 @@
     "lodash": "https://cdn.skypack.dev/lodash",
 
     "src/": "./src/",
-    "env": "./src/consts.ts"
+    "env/": "./src/"
   }
 }
