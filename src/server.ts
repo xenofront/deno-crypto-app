@@ -1,0 +1,17 @@
+import { blue, yellow } from "colors";
+import { config } from "config";
+import { Application } from "oak";
+import { envNames } from "env";
+import { botRoute } from "src/routes/index.ts";
+
+config({ export: true });
+
+const PORT = Number(Deno.env.get(envNames.PORT) || 3000);
+
+const app = new Application();
+
+app.use(botRoute.routes());
+
+app.listen({ port: PORT });
+
+console.log(blue(`app listening on port ${yellow(String(PORT))}`));
