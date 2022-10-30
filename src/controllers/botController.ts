@@ -4,10 +4,6 @@ import {
   UpdateType,
 } from "https://deno.land/x/telegram_bot_api@0.4.0/mod.ts";
 import { Request, Response } from "https://deno.land/x/oak@v11.1.0/mod.ts";
-// import { config } from "https://deno.land/std@0.161.0/dotenv/mod.ts";
-console.log(Deno.env.get("TELEGRAM_TOKEN"));
-// const env = await config({ export: true, allowEmptyValues: true });
-console.log(Deno.env.get("IDS"));
 
 const token = Deno.env.get("TELEGRAM_TOKEN") as string;
 const ids = Deno.env.get("IDS");
