@@ -8,7 +8,7 @@ import { config } from "https://deno.land/std@0.161.0/dotenv/mod.ts";
 
 const env = await config({ export: true });
 
-console.log(env);
+console.log(env, "live");
 
 const token = env.TELEGRAM_TOKEN;
 const ids = env.IDS;
