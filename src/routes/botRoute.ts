@@ -4,3 +4,4 @@ import * as botController from "../controllers/index.ts";
 export const botRoute = new Router();
 
 botRoute.post("/bot", botController.botUpdate);
+botRoute.get("/test", botController.botTest);

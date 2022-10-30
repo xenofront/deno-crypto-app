@@ -43,6 +43,13 @@ export const botUpdate = async (
   bot.handleUpdate({ ...update, message: { ...update.message, text: html } });
 };
 
+export const botTest = (
+  { response }: { response: Response },
+) => {
+  response.body = "hello";
+  response.status = 200;
+};
+
 const getCurrentState = async (): Promise<
   Array<ICoin & { currentPrice: number; currentSymbolPrice: number }>
 > => {
