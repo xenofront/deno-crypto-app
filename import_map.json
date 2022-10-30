@@ -9,7 +9,6 @@
 
     "lodash": "https://cdn.skypack.dev/lodash",
 
-    "src/": "./src/",
-    "env/": "./src/"
+    "src/": "./src/"
   }
 }
