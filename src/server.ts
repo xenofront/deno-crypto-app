@@ -1,4 +1,4 @@
-import { blue, yellow } from "fmt/colors.ts";
+import { blue, yellow } from "https://deno.land/std@0.157.0/fmt/colors.ts";
 import { config } from "https://deno.land/x/dotenv@v3.2.0/mod.ts";
 import { Application } from "oak";
 import { envNames } from "src/consts.ts";
