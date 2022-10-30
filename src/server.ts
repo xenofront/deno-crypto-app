@@ -1,5 +1,5 @@
 import { blue, yellow } from "fmt/colors.ts";
-import { config } from "config/mod.ts";
+import { config } from "https://deno.land/x/dotenv@v3.2.0/mod.ts";
 import { Application } from "oak";
 import { envNames } from "env";
 import { botRoute } from "src/routes/index.ts";
