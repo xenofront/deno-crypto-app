@@ -3,7 +3,7 @@ import {
   TelegramBot,
   UpdateType,
 } from "https://deno.land/x/telegram_bot_api@0.4.0/mod.ts";
-import { Request, Response } from "oak";
+import { Request, Response } from "https://deno.land/x/oak@v11.1.0/mod.ts";
 import "https://deno.land/x/dotenv@v3.2.0/load.ts";
 
 const token = Deno.env.get("TELEGRAM_TOKEN") as string;
