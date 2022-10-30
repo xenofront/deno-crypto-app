@@ -1,1 +1,1 @@
-export * from "src/controllers/botController.ts";
+export * from "./botController.ts";

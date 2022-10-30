@@ -1,1 +1,1 @@
-export * from "src/routes/botRoute.ts";
+export * from "./botRoute.ts";
