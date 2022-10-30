@@ -1,4 +1,8 @@
-import { MessageUpdate, TelegramBot, UpdateType } from "telegram-bot";
+import {
+  MessageUpdate,
+  TelegramBot,
+  UpdateType,
+} from "https://deno.land/x/telegram_bot_api@0.4.0/mod.ts";
 import { Request, Response } from "https://deno.land/x/oak@v11.1.0/mod.ts";
 import { config } from "https://deno.land/x/dotenv@v3.2.0/mod.ts";
 import { envNames } from "../consts.ts";
