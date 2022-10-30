@@ -1,4 +1,4 @@
-import { blue, yellow } from "colors";
+import { blue, yellow } from "fmt/colors.ts";
 import { config } from "config";
 import { Application } from "oak";
 import { envNames } from "env";

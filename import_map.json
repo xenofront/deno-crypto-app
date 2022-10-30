@@ -1,6 +1,6 @@
 {
   "imports": {
-    "colors": "https://deno.land/std@0.157.0/fmt/colors.ts",
+    "fmt/": "https://deno.land/std@0.157.0/fmt/",
     "denon": "https://deno.land/x/denon@2.5.0/mod.ts",
 
     "oak": "https://deno.land/x/oak@v11.1.0/mod.ts",
