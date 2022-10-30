@@ -1,12 +1,11 @@
 import { blue, yellow } from "https://deno.land/std@0.157.0/fmt/colors.ts";
 import { config } from "https://deno.land/x/dotenv@v3.2.0/mod.ts";
 import { Application } from "https://deno.land/x/oak@v11.1.0/mod.ts";
-import { envNames } from "./consts.ts";
 import { botRoute } from "../src/routes/index.ts";
 
-config({ export: true });
+const env = config({ export: true });
 
-const PORT = Number(Deno.env.get(envNames.PORT) || 3000);
+const PORT = Number(env.PORT || 3000);
 
 const app = new Application();
 
