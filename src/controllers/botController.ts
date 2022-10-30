@@ -1,7 +1,7 @@
 import { MessageUpdate, TelegramBot, UpdateType } from "telegram-bot";
 import { Request, Response } from "https://deno.land/x/oak@v11.1.0/mod.ts";
 import { config } from "config";
-import { envNames } from "src/consts.ts";
+import { envNames } from "../consts.ts";
 
 config({ export: true });
 
