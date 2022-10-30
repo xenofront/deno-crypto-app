@@ -1,5 +1,5 @@
 import { blue, yellow } from "fmt/colors.ts";
-import { config } from "config";
+import { config } from "config/mod.ts";
 import { Application } from "oak";
 import { envNames } from "env";
 import { botRoute } from "src/routes/index.ts";
