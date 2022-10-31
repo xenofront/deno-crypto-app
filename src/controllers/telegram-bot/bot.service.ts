@@ -45,11 +45,6 @@ export class BotService {
     });
   }
 
-  public botTest(ctx: Context) {
-    ctx.response.body = "hello";
-    ctx.response.status = 200;
-  }
-
   private async _getCurrentState(): Promise<
     Array<ICoin & { currentPrice: number; currentSymbolPrice: number }>
   > {
@@ -88,13 +83,13 @@ export class BotService {
       sumCurrentPrice += c.currentPrice;
 
       res += `
-    👉 <b>${c.symbol.toUpperCase()}</b>
-    CS ${this._toCurrency(c.currentPrice)}
-    II ${this._toCurrency(c.investment)}
-    CP ${c.currentSymbolPrice.toFixed(3)}
-    IP ${(c.investment / c.coinSum).toFixed(3)}
-    D ${this._toCurrency(Math.round(c.currentPrice - c.investment))}
-    D% ${
+👉 <b>${c.symbol.toUpperCase()}</b>
+CS ${this._toCurrency(c.currentPrice)}
+II ${this._toCurrency(c.investment)}
+CP ${c.currentSymbolPrice.toFixed(3)}
+IP ${(c.investment / c.coinSum).toFixed(3)}
+D ${this._toCurrency(Math.round(c.currentPrice - c.investment))}
+D% ${
         (Math.round(c.currentPrice - c.investment) / c.investment * 100)
           .toFixed(
             1,
@@ -103,11 +98,11 @@ export class BotService {
     });
 
     res += `
-    👉 <b>SUMMARY</b>
-    CS ${this._toCurrency(sumCurrentPrice)}
-    II ${this._toCurrency(sumInvestments)}
-    D ${this._toCurrency(sumCurrentPrice - sumInvestments)}
-    D% ${
+👉 <b>SUMMARY</b>
+CS ${this._toCurrency(sumCurrentPrice)}
+II ${this._toCurrency(sumInvestments)}
+D ${this._toCurrency(sumCurrentPrice - sumInvestments)}
+D% ${
       Math.round((sumCurrentPrice - sumInvestments) / sumInvestments * 100)
         .toFixed(
           1,

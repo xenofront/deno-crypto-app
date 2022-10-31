@@ -5,6 +5,6 @@ const router = new Router();
 
 const botService = new BotService();
 
-router.post("/", botService.botUpdate);
+router.post("/", botService.botUpdate.bind(botService));
 
 export default router;
