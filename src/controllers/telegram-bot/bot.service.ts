@@ -7,7 +7,7 @@ import { Context } from "https://deno.land/x/oak@v11.1.0/mod.ts";
 import { ICoin, ITokenRes } from "./bot.interface.ts";
 import "https://deno.land/x/dotenv@v3.2.0/load.ts";
 
-export class BotService {
+class BotService {
   private _bot: TelegramBot;
 
   constructor() {
@@ -121,3 +121,5 @@ D% ${
       .format(num);
   }
 }
+
+export default new BotService();
