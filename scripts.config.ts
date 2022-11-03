@@ -4,7 +4,6 @@ const config: DenonConfig = {
   scripts: {
     start: {
       cmd: "server.ts",
-      importMap: "import_map.json",
       allow: ["all"],
     },
   },

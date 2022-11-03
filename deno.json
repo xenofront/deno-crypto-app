@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "allowJs": false
+  },
+  "importMap": "./import_map.json"
+}

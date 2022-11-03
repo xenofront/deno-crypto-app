@@ -1,6 +1,6 @@
-import { blue, yellow } from "https://deno.land/std@0.157.0/fmt/colors.ts";
-import { Application } from "https://deno.land/x/oak@v11.1.0/mod.ts";
-import { appController, botController } from "./src/controllers/mod.ts";
+import { blue, yellow } from "std/fmt/colors.ts";
+import { Application } from "oak";
+import { appController, botController } from "controllers/mod.ts";
 
 const PORT = Number(Deno.env.get("PORT") || 3000);
 
