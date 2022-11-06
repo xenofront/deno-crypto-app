@@ -1,3 +1,5 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
 name: Deploy
 on: [push]
 
@@ -20,6 +22,7 @@ jobs:
 
       - name: Format
         run: deno fmt --check
+
       - name: Lint
         run: deno lint --unstable
 
