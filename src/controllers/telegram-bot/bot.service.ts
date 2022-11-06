@@ -26,11 +26,7 @@ class BotService {
 
     response.status = 200;
 
-    const myId = Number(Deno.env.get("MY_TELEGRAM_ID"));
-    if (
-      update.message.from?.id !== myId ||
-      update.message.text?.toLowerCase() !== "/stats"
-    ) {
+    if (update.message.text?.toLowerCase() !== "/stats") {
       return;
     }
 
