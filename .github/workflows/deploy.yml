@@ -1,9 +1,5 @@
 name: Deploy
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+on: [push]
 
 jobs:
   deploy:
@@ -17,18 +13,8 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v3
 
-      - name: Install Deno
-        uses: denoland/setup-deno@v1
-        with:
-          deno-version: v1.x
-
-      - name: Format
-        run: deno fmt --check
-      - name: Lint
-        run: deno lint --unstable
-
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
-          project: "crypto-app"
-          entrypoint: "./server.ts"
+          project: deno-crypto-app
+          entrypoint: server.ts
