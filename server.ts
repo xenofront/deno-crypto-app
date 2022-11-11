@@ -9,6 +9,6 @@ const app = new Application();
 app.use(appController.prefix("/app").routes());
 app.use(botController.prefix("/bot").routes());
 
-console.log(blue(`app listening on port ${yellow(PORT.toString())}`));
+console.log(blue(`http://localhost:${yellow(PORT.toString())}`));
 
 await app.listen({ port: PORT });
