@@ -3,6 +3,6 @@ import BotService from "controllers/telegram-bot/bot.service.ts";
 
 const router = new Router();
 
-router.post("/", (ctx: Context) => BotService.botUpdate(ctx));
+router.post("/bot", (ctx: Context) => BotService.botUpdate(ctx));
 
 export default router;
