@@ -33,4 +33,4 @@ jobs:
         uses: denoland/deployctl@v1
         with:
           project: deno-crypto-app
-          entrypoint: server.ts
+          entrypoint: src/server.ts
