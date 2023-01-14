@@ -1,3 +1,4 @@
+import "std/dotenv/load.ts";
 import { blue, yellow } from "std/fmt/colors.ts";
 import { Application } from "oak";
 import { registerControllers } from "controllers/mod.ts";

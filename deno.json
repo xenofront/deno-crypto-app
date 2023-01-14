@@ -1,7 +1,4 @@
 {
-  "compilerOptions": {
-    "allowJs": false
-  },
   "importMap": "./import_map.json",
   "tasks": {
     "start": "deno run -A --watch src/server.ts"
