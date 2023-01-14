@@ -1,10 +1,8 @@
-import { Context, Router } from "oak";
+import { Router } from "oak";
+import AppService from "controllers/app/app.service.ts";
 
-const router = new Router();
+const appController = new Router();
 
-router.get("/app", (ctx: Context) => {
-  ctx.response.body = "alive";
-  ctx.response.status = 200;
-});
+appController.get("/app", (ctx) => AppService.appTest(ctx));
 
-export default router;
+export { appController };

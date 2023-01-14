@@ -2,12 +2,9 @@
   "imports": {
     "std/": "https://deno.land/std@0.157.0/",
 
-    "denon": "https://deno.land/x/denon@2.5.0/mod.ts",
     "oak": "https://deno.land/x/oak@v11.1.0/mod.ts",
     "config": "https://deno.land/x/dotenv@v3.2.0/mod.ts",
     "telegram-bot": "https://deno.land/x/telegram_bot_api@0.4.0/mod.ts",
-
-    "lodash": "https://cdn.skypack.dev/lodash",
 
     "controllers/": "./src/controllers/"
   }
