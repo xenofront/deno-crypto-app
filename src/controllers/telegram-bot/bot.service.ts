@@ -1,7 +1,7 @@
 import { MessageUpdate, TelegramBot, UpdateType } from "telegram-bot";
 import { Context } from "oak";
 import { ICoin, ITokenRes } from "controllers/telegram-bot/bot.interface.ts";
-import "https://deno.land/x/dotenv@v3.2.0/load.ts";
+// import "https://deno.land/x/dotenv@v3.2.0/load.ts";
 
 class BotService {
   private _bot: TelegramBot;
