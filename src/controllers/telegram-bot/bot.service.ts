@@ -8,6 +8,7 @@ class BotService {
 
   constructor() {
     this._bot = new TelegramBot(Deno.env.get("TELEGRAM_TOKEN") as string);
+    console.log(Deno.env.get("TELEGRAM_TOKEN"));
 
     this._bot.on(UpdateType.Message, async ({ message }) => {
       const { chat: { id }, text } = message;
