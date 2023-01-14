@@ -1,14 +1,12 @@
 import { MessageUpdate, TelegramBot, UpdateType } from "telegram-bot";
 import { Context } from "oak";
 import { ICoin, ITokenRes } from "controllers/telegram-bot/bot.interface.ts";
-// import "https://deno.land/x/dotenv@v3.2.0/load.ts";
 
 class BotService {
   private _bot: TelegramBot;
 
   constructor() {
     this._bot = new TelegramBot(Deno.env.get("TELEGRAM_TOKEN") as string);
-    console.log(Deno.env.get("TELEGRAM_TOKEN"));
 
     this._bot.on(UpdateType.Message, async ({ message }) => {
       const { chat: { id }, text } = message;
