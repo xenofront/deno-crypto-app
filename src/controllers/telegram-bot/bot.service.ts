@@ -106,7 +106,7 @@ D% ${
     if (otherExpenses.length) {
       res += `
 👉 <b>OTHER EXPENSES</b>
-SUM ${this._otherExpenses(coins, otherExpenses)}
+SUM ${this._toCurrency(this._otherExpenses(coins, otherExpenses))}
       `;
     }
 
@@ -138,15 +138,12 @@ D% ${
     coins: Array<ICoin & { currentPrice: number; currentSymbolPrice: number }>,
     otherExpenses: IOtherExpense[],
   ) {
-    const res = coins.reduce((acc, curr) => {
+    return coins.reduce((acc, curr) => {
       if (!otherExpenses.some((c) => c.symbol === curr.symbol)) {
         return acc;
       }
       return acc += curr.investment;
     }, 0);
-
-    return new Intl.NumberFormat("el-GR")
-      .format(res);
   }
 }
 
