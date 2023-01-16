@@ -142,7 +142,7 @@ D% ${
       if (!otherExpenses.some((c) => c.symbol === curr.symbol)) {
         return acc;
       }
-      return acc += curr.currentPrice;
+      return acc += curr.investment;
     }, 0);
 
     return new Intl.NumberFormat("el-GR")
