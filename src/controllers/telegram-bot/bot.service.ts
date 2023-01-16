@@ -1,6 +1,10 @@
 import { MessageUpdate, TelegramBot, UpdateType } from "telegram-bot";
 import { Context } from "oak";
-import { ICoin, ITokenRes } from "controllers/telegram-bot/bot.interface.ts";
+import {
+  ICoin,
+  IOtherExpense,
+  ITokenRes,
+} from "controllers/telegram-bot/bot.interface.ts";
 
 class BotService {
   private _bot: TelegramBot;
@@ -71,13 +75,22 @@ class BotService {
     let sumInvestments = 0;
     let sumCurrentPrice = 0;
 
-    coins.forEach((c) => {
+    const otherExpenses = JSON.parse(
+      Deno.env.get("OTHER_EXPENSES") as string,
+    ) as IOtherExpense[];
+
+    for (const c of coins) {
       sumInvestments += c.investment;
       sumCurrentPrice += c.currentPrice;
+
+      if (otherExpenses.find((exp) => exp.symbol === c.symbol)) {
+        continue;
+      }
 
       res += `
 👉 <b>${c.symbol.toUpperCase()}</b>
 CS ${this._toCurrency(c.currentPrice)}
+COINS ${new Intl.NumberFormat("el-GR").format(c.coinSum)}
 II ${this._toCurrency(c.investment)}
 CP ${c.currentSymbolPrice.toFixed(3)}
 IP ${(c.investment / c.coinSum).toFixed(3)}
@@ -88,7 +101,14 @@ D% ${
             1,
           )
       }%\n`;
-    });
+    }
+
+    if (otherExpenses.length) {
+      res += `
+👉 <b>OTHER EXPENSES</b>
+SUM ${this._otherExpenses(coins, otherExpenses)}
+      `;
+    }
 
     res += `
 👉 <b>SUMMARY</b>
@@ -112,6 +132,21 @@ D% ${
       currency: "USD",
     })
       .format(num);
+  }
+
+  private _otherExpenses(
+    coins: Array<ICoin & { currentPrice: number; currentSymbolPrice: number }>,
+    otherExpenses: IOtherExpense[],
+  ) {
+    const res = coins.reduce((acc, curr) => {
+      if (!otherExpenses.some((c) => c.symbol === curr.symbol)) {
+        return acc;
+      }
+      return acc += curr.currentPrice;
+    }, 0);
+
+    return new Intl.NumberFormat("el-GR")
+      .format(res);
   }
 }
 

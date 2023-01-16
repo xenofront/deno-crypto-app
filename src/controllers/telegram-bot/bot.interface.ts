@@ -8,3 +8,7 @@ export interface ICoin {
   investment: number;
   coinSum: number;
 }
+
+export interface IOtherExpense {
+  symbol: string;
+}
