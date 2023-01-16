@@ -104,9 +104,18 @@ D% ${
     }
 
     if (otherExpenses.length) {
+      const expenses = this._otherExpenses(coins, otherExpenses);
       res += `
 👉 <b>OTHER EXPENSES</b>
-SUM ${this._toCurrency(this._otherExpenses(coins, otherExpenses))}
+CS ${this._toCurrency(expenses.CS)}
+II ${this._toCurrency(expenses.II)}
+D ${this._toCurrency(expenses.CS - expenses.II)}
+D% ${
+        Math.round((expenses.CS - expenses.II) / expenses.II * 100)
+          .toFixed(
+            1,
+          )
+      }
       `;
     }
 
@@ -142,8 +151,11 @@ D% ${
       if (!otherExpenses.some((c) => c.symbol === curr.symbol)) {
         return acc;
       }
-      return acc += curr.investment;
-    }, 0);
+      return {
+        CS: acc.CS += curr.currentPrice,
+        II: acc.II += curr.investment,
+      };
+    }, { CS: 0, II: 0 });
   }
 }
 
