@@ -1,5 +1,4 @@
 {
-  "importMap": "./import_map.json",
   "tasks": {
     "start": "deno run -A --watch src/server.ts"
   },
@@ -7,5 +6,11 @@
     "files": {
       "include": ["src/"]
     }
+  },
+  "imports": {
+    "std/": "https://deno.land/std@0.172.0/",
+    "oak": "https://deno.land/x/oak@v11.1.0/mod.ts",
+    "telegram-bot": "https://deno.land/x/telegram_bot_api@0.4.0/mod.ts",
+    "controllers/": "./src/controllers/"
   }
 }
