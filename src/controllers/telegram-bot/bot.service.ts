@@ -48,24 +48,29 @@ class BotService {
     const ids = Deno.env.get("IDS");
     const coinGeckoUri = Deno.env.get("COIN_GECKO_URI");
 
-    const res = await fetch(
-      `${coinGeckoUri}/price?ids=${ids}&vs_currencies=usd`,
-    );
-    const tokens: ITokenRes = await res.json();
+        try {
+      const res = await fetch(
+          `${coinGeckoUri}/price?ids=${ids}&vs_currencies=usd`,
+      );
+      const tokens: ITokenRes = await res.json();
 
-    const coins: ICoin[] = JSON.parse(Deno.env.get("COINS") as string);
+      const coins: ICoin[] = JSON.parse(Deno.env.get("COINS") as string);
 
-    return coins.map((x) => {
-      const currentPrice =
-        Math.round((tokens[x.name.toLowerCase()].usd * x.coinSum) * 100) / 100;
+      return coins.map((x) => {
+        const currentPrice =
+            Math.round((tokens[x.name.toLowerCase()].usd * x.coinSum) * 100) / 100;
 
-      return {
-        ...x,
-        coinSum: (x.coinSum * 100) / 100,
-        currentPrice,
-        currentSymbolPrice: tokens[x.name.toLowerCase()].usd,
-      };
-    });
+        return {
+          ...x,
+          coinSum: (x.coinSum * 100) / 100,
+          currentPrice,
+          currentSymbolPrice: tokens[x.name.toLowerCase()].usd,
+        };
+      });
+    } catch (e) {
+      console.log(e);
+      throw `Something went wrong: ${e}`;
+    }
   }
 
   private _convertToHtml(
