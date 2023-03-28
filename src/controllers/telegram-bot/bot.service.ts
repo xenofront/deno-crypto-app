@@ -50,7 +50,7 @@ class BotService {
 
     try {
       const res = await fetch(
-          `${coinGeckoUri}/price?ids=${ids}&vs_currencies=usd`,
+        `${coinGeckoUri}/price?ids=${ids}&vs_currencies=usd`,
       );
       const tokens: ITokenRes = await res.json();
 
@@ -58,7 +58,7 @@ class BotService {
 
       return coins.map((x) => {
         const currentPrice =
-            Math.round((tokens[x.name.toLowerCase()].usd * x.coinSum) * 100) / 100;
+          Math.round((tokens[x.name.toLowerCase()].usd * x.coinSum) * 100) / 100;
 
         return {
           ...x,
