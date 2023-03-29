@@ -32,9 +32,9 @@ class BotService {
     if (update.message.text?.toLowerCase() !== "/stats") {
       return;
     }
-
+    console.log(update);
     const state = await this._getCurrentState();
-
+    console.log(state);
     const html = this._convertToHtml(state);
 
     this._bot.handleUpdate({
@@ -49,14 +49,11 @@ class BotService {
     const ids = Deno.env.get("IDS");
     const coinGeckoUri = Deno.env.get("COIN_GECKO_URI");
 
-    console.log(ids, coinGeckoUri);
     try {
       const res = await fetch(
         `${coinGeckoUri}/price?ids=${ids}&vs_currencies=usd`,
       );
-      console.log(res);
       const tokens: ITokenRes = await res.json();
-      console.log(tokens);
       const coins: ICoin[] = JSON.parse(Deno.env.get("COINS") as string);
 
       return coins.map((x) => {
