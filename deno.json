@@ -13,6 +13,6 @@
     "oak": "https://deno.land/x/oak@v12.1.0/mod.ts",
     "telegram-bot": "https://deno.land/x/telegram_bot_api@0.4.0/mod.ts",
     "controllers/": "./src/controllers/",
-    "axios": "npm:axios"
+    "axios": "https://esm.sh/axios@1.3.4"
   }
 }
