@@ -56,7 +56,6 @@ class BotService {
       );
       const tokens: ITokenRes = await res.json();
       console.log(tokens);
-      console.log(await tokens);
       const coins: ICoin[] = JSON.parse(Deno.env.get("COINS") as string);
 
       return coins.map((x) => {
