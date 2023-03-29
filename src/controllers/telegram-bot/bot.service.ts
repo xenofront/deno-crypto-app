@@ -3,6 +3,7 @@ import { Context } from "oak";
 import {
   ICoin,
   IOtherExpense,
+  ITokenRes,
 } from "controllers/telegram-bot/bot.interface.ts";
 
 class BotService {
@@ -33,7 +34,7 @@ class BotService {
     }
 
     const state = await this._getCurrentState();
-    console.log(state);
+
     const html = this._convertToHtml(state);
 
     this._bot.handleUpdate({
@@ -48,14 +49,13 @@ class BotService {
     const ids = Deno.env.get("IDS");
     const coinGeckoUri = Deno.env.get("COIN_GECKO_URI");
 
-    const res = await fetch(
-      `${coinGeckoUri}/price?ids=${ids}&vs_currencies=usd`,
-    );
-
-    // deno-lint-ignore no-explicit-any
-    const tokens: any = await res.text();
-    console.log(tokens);
     try {
+      const res = await fetch(
+        `${coinGeckoUri}/price?ids=${ids}&vs_currencies=usd`,
+      );
+      const tokens: ITokenRes = await res.json();
+      console.log(tokens);
+      console.log(await tokens);
       const coins: ICoin[] = JSON.parse(Deno.env.get("COINS") as string);
 
       return coins.map((x) => {
