@@ -31,7 +31,7 @@ class BotService {
     if (update.message.text?.toLowerCase() !== "/stats") {
       return;
     }
-    console.log(update);
+
     const state = await this._getCurrentState();
     console.log(state);
     const html = this._convertToHtml(state);
