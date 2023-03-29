@@ -3,7 +3,6 @@ import { Context } from "oak";
 import {
   ICoin,
   IOtherExpense,
-  ITokenRes,
 } from "controllers/telegram-bot/bot.interface.ts";
 
 class BotService {
