@@ -5,7 +5,6 @@ import {
   IOtherExpense,
   ITokenRes,
 } from "controllers/telegram-bot/bot.interface.ts";
-import axios from "axios";
 
 class BotService {
   private _bot: TelegramBot;
@@ -47,17 +46,15 @@ class BotService {
   private async _getCurrentState(): Promise<
     Array<ICoin & { currentPrice: number; currentSymbolPrice: number }>
   > {
-    // const ids = Deno.env.get("IDS");
-    // const coinGeckoUri = Deno.env.get("COIN_GECKO_URI");
+    const ids = Deno.env.get("IDS");
+    const coinGeckoUri = Deno.env.get("COIN_GECKO_URI");
 
     try {
-      const res = await axios.get(
-        `https://api.coingecko.com/api/v3/simple/price?ids=hedera-hashgraph,jigstack,convex-finance,verasity,ripple,ethereum,axia,pop,constellation-labs,mute,exponential-capital,bro-token,aleph-zero&vs_currencies=usd`,
+      const res = await fetch(
+        `${coinGeckoUri}/price?ids=${ids}&vs_currencies=usd`,
       );
 
-      console.log(res);
-      const tokens: ITokenRes = res.data;
-      console.log(tokens);
+      const tokens: ITokenRes = await res.json();
       const coins: ICoin[] = JSON.parse(Deno.env.get("COINS") as string);
 
       return coins.map((x) => {
