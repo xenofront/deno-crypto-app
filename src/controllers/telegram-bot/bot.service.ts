@@ -34,6 +34,7 @@ class BotService {
     }
 
     const state = await this._getCurrentState();
+    console.log(state);
     const html = this._convertToHtml(state);
 
     this._bot.handleUpdate({
