@@ -52,6 +52,8 @@ class BotService {
     const res = await fetch(
       `${coinGeckoUri}/price?ids=${ids}&vs_currencies=usd`,
     );
+
+    // deno-lint-ignore no-explicit-any
     const tokens: any = await res.text();
     console.log(tokens);
     try {
