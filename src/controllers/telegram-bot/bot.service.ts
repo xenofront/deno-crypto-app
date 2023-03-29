@@ -34,7 +34,7 @@ class BotService {
     }
 
     const state = await this._getCurrentState();
-    console.log(state, "state");
+
     const html = this._convertToHtml(state);
 
     this._bot.handleUpdate({
@@ -53,8 +53,8 @@ class BotService {
       const res = await fetch(
         `${coinGeckoUri}/price?ids=${ids}&vs_currencies=usd`,
       );
+      console.log(res);
       const tokens: ITokenRes = await res.json();
-      console.log(tokens);
       const coins: ICoin[] = JSON.parse(Deno.env.get("COINS") as string);
 
       return coins.map((x) => {
