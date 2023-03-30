@@ -49,7 +49,7 @@ class BotService {
     const coinGeckoUri = Deno.env.get("COIN_GECKO_URI");
 
     const res = await fetch(
-      `${coinGeckoUri}/price?ids=${ids}&vs_currencies=usd`,
+      `${coinGeckoUri}price?ids=${ids}&vs_currencies=usd`,
     );
     const tokens: ITokenRes = await res.json();
 
