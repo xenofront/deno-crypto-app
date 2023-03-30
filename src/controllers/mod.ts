@@ -1,6 +1,6 @@
 import { botController } from "controllers/telegram-bot/bot.controller.ts";
 // import { appController } from "controllers/app/app.controller.ts";
-import { Express } from 'express';
+import { Express } from "express";
 
 const controllers = [botController];
 
