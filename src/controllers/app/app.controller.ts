@@ -1,8 +1,8 @@
-import { Router } from "oak";
-import AppService from "controllers/app/app.service.ts";
+// import { Router } from "oak";
+// import AppService from "controllers/app/app.service.ts";
 
-const appController = new Router();
+// const appController = new Router();
 
-appController.get("/app", (ctx) => AppService.appTest(ctx));
+// appController.get("/app", (ctx) => AppService.appTest(ctx));
 
-export { appController };
+// export { appController };

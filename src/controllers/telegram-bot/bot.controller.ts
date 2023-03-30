@@ -1,8 +1,8 @@
-import { Router } from "oak";
+import { Request, Response, Router } from "express";
 import BotService from "controllers/telegram-bot/bot.service.ts";
 
-const botController = new Router();
+const botController = Router();
 
-botController.post("/bot", (ctx) => BotService.botUpdate(ctx));
+botController.post("/bot", (req: Request, res: Response) => BotService.botUpdate(req, res));
 
 export { botController };

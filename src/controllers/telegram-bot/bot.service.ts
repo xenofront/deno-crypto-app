@@ -1,5 +1,6 @@
 import { MessageUpdate, TelegramBot, UpdateType } from "telegram-bot";
-import { Context } from "oak";
+import { Request, Response, Router } from "express";
+
 import {
   ICoin,
   IOtherExpense,
@@ -23,11 +24,10 @@ class BotService {
     });
   }
 
-  public async botUpdate(ctx: Context) {
-    const { request, response } = ctx;
-    const update: MessageUpdate = await request.body().value;
+  public async botUpdate(req, res) {
+    const update: MessageUpdate = req.body;
 
-    response.status = 200;
+    res.status(200).send();
 
     if (update.message.text?.toLowerCase() !== "/stats") {
       return;
