@@ -8,7 +8,7 @@ class AppService {
 
     const tokens: ITokenRes = await result.json();
     console.log(tokens);
-    res.status(200).send('ok');
+    res.status(200).send("ok");
   }
 }
 
