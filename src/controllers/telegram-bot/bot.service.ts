@@ -1,5 +1,5 @@
 import { MessageUpdate, TelegramBot, UpdateType } from "telegram-bot";
-
+import { Context } from "oak";
 import {
   ICoin,
   IOtherExpense,
@@ -23,17 +23,17 @@ class BotService {
     });
   }
 
-  public async botUpdate(req, res) {
-    const update: MessageUpdate = req.body;
+  public async botUpdate(ctx: Context) {
+    const { request, response } = ctx;
+    const update: MessageUpdate = await request.body().value;
 
-    res.status(200).send();
+    response.status = 200;
 
     if (update.message.text?.toLowerCase() !== "/stats") {
       return;
     }
 
     const state = await this._getCurrentState();
-
     const html = this._convertToHtml(state);
 
     this._bot.handleUpdate({
@@ -48,30 +48,24 @@ class BotService {
     const ids = Deno.env.get("IDS");
     const coinGeckoUri = Deno.env.get("COIN_GECKO_URI");
 
-    try {
-      const res = await fetch(
-        `${coinGeckoUri}/price?ids=${ids}&vs_currencies=usd`,
-      );
+    const res = await fetch(
+      `${coinGeckoUri}/price?ids=${ids}&vs_currencies=usd`,
+    );
+    const tokens: ITokenRes = await res.json();
 
-      const tokens: ITokenRes = await res.json();
-      const coins: ICoin[] = JSON.parse(Deno.env.get("COINS") as string);
+    const coins: ICoin[] = JSON.parse(Deno.env.get("COINS") as string);
 
-      return coins.map((x) => {
-        const currentPrice =
-          Math.round((tokens[x.name.toLowerCase()].usd * x.coinSum) * 100) /
-          100;
+    return coins.map((x) => {
+      const currentPrice =
+        Math.round((tokens[x.name.toLowerCase()].usd * x.coinSum) * 100) / 100;
 
-        return {
-          ...x,
-          coinSum: (x.coinSum * 100) / 100,
-          currentPrice,
-          currentSymbolPrice: tokens[x.name.toLowerCase()].usd,
-        };
-      });
-    } catch (e) {
-      console.log(e);
-      throw `Something went wrong: ${e}`;
-    }
+      return {
+        ...x,
+        coinSum: (x.coinSum * 100) / 100,
+        currentPrice,
+        currentSymbolPrice: tokens[x.name.toLowerCase()].usd,
+      };
+    });
   }
 
   private _convertToHtml(

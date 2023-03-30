@@ -1,14 +1,14 @@
-// import { Context } from "oak";
+import { Context } from "oak";
 
 class AppService {
-  public async appTest(res) {
-    const result = await fetch(
-      "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd",
-    );
+  public appTest(ctx: Context) {
+    const ids = Deno.env.get("IDS");
+    const coinGeckoUri = Deno.env.get("COIN_GECKO_URI");
 
-    const tokens: ITokenRes = await result.json();
-    console.log(tokens);
-    res.status(200).send("ok");
+    console.log(`${coinGeckoUri}/price?ids=${ids}&vs_currencies=usd`);
+
+    ctx.response.body = "alive";
+    ctx.response.status = 200;
   }
 }
 
