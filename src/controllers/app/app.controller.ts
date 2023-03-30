@@ -1,8 +1,11 @@
-// import { Router } from "oak";
-// import AppService from "controllers/app/app.service.ts";
+import { Request, Response, Router } from "express";
+import AppService from "controllers/app/app.service.ts";
 
-// const appController = new Router();
+const appController = Router();
 
-// appController.get("/app", (ctx) => AppService.appTest(ctx));
+appController.get(
+  "/app",
+  (_req: Request, res: Response) => AppService.appTest(res),
+);
 
-// export { appController };
+export { appController };
