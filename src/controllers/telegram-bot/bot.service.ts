@@ -1,5 +1,4 @@
 import { MessageUpdate, TelegramBot, UpdateType } from "telegram-bot";
-import { Request, Response, Router } from "express";
 
 import {
   ICoin,

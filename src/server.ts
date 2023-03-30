@@ -1,5 +1,5 @@
 import "std/dotenv/load.ts";
-import { blue, yellow } from "std/fmt/colors.ts";
+import { yellow } from "std/fmt/colors.ts";
 // import { Application } from "oak";
 import { registerControllers } from "controllers/mod.ts";
 import express, { Express } from "express";
