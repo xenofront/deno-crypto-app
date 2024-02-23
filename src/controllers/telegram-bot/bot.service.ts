@@ -91,8 +91,8 @@ class BotService {
 CS ${this._toCurrency(c.currentPrice)}
 COINS ${new Intl.NumberFormat("el-GR").format(c.coinSum)}
 II ${this._toCurrency(c.investment)}
-CP ${c.currentSymbolPrice.toFixed(3)}
-IP ${(c.investment / c.coinSum).toFixed(3)}
+CP ${c.currentSymbolPrice.toFixed(4)}
+IP ${(c.investment / c.coinSum).toFixed(4)}
 D ${this._toCurrency(Math.round(c.currentPrice - c.investment))}
 D% ${
         (Math.round(c.currentPrice - c.investment) / c.investment * 100)
