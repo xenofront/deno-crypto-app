@@ -7,6 +7,9 @@ export interface ICoin {
   symbol: string;
   investment: number;
   coinSum: number;
+  hidden: boolean;
+  active: boolean;
+  closed?: number;
 }
 
 export interface IOtherExpense {

@@ -74,15 +74,15 @@ class BotService {
     let sumInvestments = 0;
     let sumCurrentPrice = 0;
 
-    const otherExpenses = JSON.parse(
-      Deno.env.get("OTHER_EXPENSES") as string,
-    ) as IOtherExpense[];
-
     for (const c of coins) {
+      if (!c.active) {
+        continue;
+      }
+
       sumInvestments += c.investment;
       sumCurrentPrice += c.currentPrice;
 
-      if (otherExpenses.find((exp) => exp.symbol === c.symbol)) {
+      if (c.hidden) {
         continue;
       }
 
@@ -99,13 +99,15 @@ D% ${
           .toFixed(
             1,
           )
-      }%\n`;
+      }\n`;
     }
 
-    if (otherExpenses.length) {
-      const expenses = this._otherExpenses(coins, otherExpenses);
+    const hiddenExpenses = coins.filter((coin) => coin.hidden);
+
+    if (hiddenExpenses.length) {
+      const expenses = this._getHiddenExpenses(coins, hiddenExpenses);
       res += `
-👉 <b>OTHER EXPENSES</b>
+👉 <b>HIDDEN EXPENSES</b>
 CS ${this._toCurrency(expenses.CS)}
 II ${this._toCurrency(expenses.II)}
 D ${this._toCurrency(expenses.CS - expenses.II)}
@@ -142,12 +144,12 @@ D% ${
       .format(num);
   }
 
-  private _otherExpenses(
+  private _getHiddenExpenses(
     coins: Array<ICoin & { currentPrice: number; currentSymbolPrice: number }>,
-    otherExpenses: IOtherExpense[],
+    hiddenExpenses: IOtherExpense[],
   ) {
     return coins.reduce((acc, curr) => {
-      if (!otherExpenses.some((c) => c.symbol === curr.symbol)) {
+      if (!hiddenExpenses.some((c) => c.symbol === curr.symbol)) {
         return acc;
       }
       return {
