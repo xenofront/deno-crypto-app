@@ -50,7 +50,7 @@ class BotService {
       .filter((coin) => coin.active)
       .map((coin) => coin.symbol)
       .join(",");
-
+    console.log(ids);
     const coinGeckoUri = Deno.env.get("COIN_GECKO_URI");
 
     const res = await fetch(
