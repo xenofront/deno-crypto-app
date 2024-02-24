@@ -80,18 +80,21 @@ class BotService {
     let sumCurrentPrice = 0;
 
     for (const c of coins) {
+      if (c.id === "exponential-capital-2") {
+        console.log(c);
+      }
       if (!c.active) {
         sumInvestments += c.investment;
         sumCurrentPrice += c.closed ?? 0;
         continue;
       }
 
-      // sumInvestments += c.investment;
-      // sumCurrentPrice += c.currentPrice!;
+      sumInvestments += c.investment;
+      sumCurrentPrice += c.currentPrice!;
 
-      // if (c.hidden) {
-      //   continue;
-      // }
+      if (c.hidden) {
+        continue;
+      }
 
       res += `
 👉 <b>${c.id.toUpperCase()}</b>
