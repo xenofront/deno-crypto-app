@@ -4,6 +4,7 @@ export interface ITokenRes {
 
 export interface ICoin {
   id: string;
+  symbol: string;
   investment: number;
   coinSum: number;
   hidden?: boolean;
