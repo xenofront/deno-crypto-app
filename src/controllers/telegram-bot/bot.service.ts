@@ -78,13 +78,14 @@ class BotService {
     let res = "";
     let sumInvestments = 0;
     let sumCurrentPrice = 0;
+    console.log(coins);
 
     for (const c of coins) {
-      // if (!c.active) {
-      //   sumInvestments += c.investment;
-      //   sumCurrentPrice += c.closed ?? 0;
-      //   continue;
-      // }
+      if (!c.active) {
+        sumInvestments += c.investment;
+        sumCurrentPrice += c.closed ?? 0;
+        continue;
+      }
 
       sumInvestments += c.investment;
       sumCurrentPrice += c.currentPrice!;
