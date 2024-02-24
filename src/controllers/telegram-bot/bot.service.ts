@@ -48,9 +48,9 @@ class BotService {
     const coins: ICoin[] = JSON.parse(Deno.env.get("COINS") as string);
     const ids = coins
       .filter((coin) => coin.active)
-      .map((coin) => coin.symbol)
+      .map((coin) => coin.id)
       .join(",");
-    console.log(ids);
+
     const coinGeckoUri = Deno.env.get("COIN_GECKO_URI");
 
     const res = await fetch(
@@ -60,13 +60,14 @@ class BotService {
 
     return coins.map((x) => {
       const currentPrice =
-        Math.round((tokens[x.name.toLowerCase()].usd * x.coinSum) * 100) / 100;
+        Math.round((tokens[x.symbol.toLowerCase()].usd * x.coinSum) * 100) /
+        100;
 
       return {
         ...x,
         coinSum: (x.coinSum * 100) / 100,
         currentPrice,
-        currentSymbolPrice: tokens[x.name.toLowerCase()].usd,
+        currentSymbolPrice: tokens[x.symbol.toLowerCase()].usd,
       };
     });
   }

@@ -3,7 +3,7 @@ export interface ITokenRes {
 }
 
 export interface ICoin {
-  name: string;
+  id: string;
   symbol: string;
   investment: number;
   coinSum: number;
