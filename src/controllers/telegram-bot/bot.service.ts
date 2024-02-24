@@ -1,10 +1,6 @@
 import { MessageUpdate, TelegramBot, UpdateType } from "telegram-bot";
 import { Context } from "oak";
-import {
-  ICoin,
-  IOtherExpense,
-  ITokenRes,
-} from "controllers/telegram-bot/bot.interface.ts";
+import { ICoin, ITokenRes } from "controllers/telegram-bot/bot.interface.ts";
 
 class BotService {
   private _bot: TelegramBot;
@@ -57,9 +53,10 @@ class BotService {
       `${coinGeckoUri}price?ids=${ids}&vs_currencies=usd`,
     );
     const tokens: ITokenRes = await res.json();
+    console.log(ids);
     console.log(tokens);
     return coins.map((x) => {
-      const currentSymbolPrice = tokens[x.id.toLowerCase()].usd;
+      const currentSymbolPrice = tokens[x.id].usd;
       const currentPrice = Math.round((currentSymbolPrice * x.coinSum) * 100) /
         100;
 
@@ -94,7 +91,7 @@ class BotService {
       }
 
       res += `
-👉 <b>${c.symbol.toUpperCase()}</b>
+👉 <b>${c.id.toUpperCase()}</b>
 CS ${this._toCurrency(c.currentPrice)}
 COINS ${new Intl.NumberFormat("el-GR").format(c.coinSum)}
 II ${this._toCurrency(c.investment)}
@@ -112,7 +109,7 @@ D% ${
     const hiddenExpenses = coins.filter((coin) => coin.hidden);
 
     if (hiddenExpenses.length) {
-      const expenses = this._getHiddenExpenses(coins, hiddenExpenses);
+      const expenses = this._getHiddenExpenses(hiddenExpenses);
       res += `
 👉 <b>HIDDEN EXPENSES</b>
 CS ${this._toCurrency(expenses.CS)}
@@ -152,13 +149,11 @@ D% ${
   }
 
   private _getHiddenExpenses(
-    coins: Array<ICoin & { currentPrice: number; currentSymbolPrice: number }>,
-    hiddenExpenses: IOtherExpense[],
+    hiddenCoins: Array<
+      ICoin & { currentPrice: number; currentSymbolPrice: number }
+    >,
   ) {
-    return coins.reduce((acc, curr) => {
-      if (!hiddenExpenses.some((c) => c.symbol === curr.symbol)) {
-        return acc;
-      }
+    return hiddenCoins.reduce((acc, curr) => {
       return {
         CS: acc.CS += curr.currentPrice,
         II: acc.II += curr.investment,
