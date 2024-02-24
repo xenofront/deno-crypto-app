@@ -94,7 +94,7 @@ class BotService {
       }
 
       res += `
-👉 <b>${c.id.toUpperCase()}</b>
+👉 <b>${c.id.replaceAll("-", " ")}</b>
 CS ${this._toCurrency(c.currentPrice!)}
 COINS ${new Intl.NumberFormat("el-GR").format(c.coinSum)}
 II ${this._toCurrency(c.investment)}
