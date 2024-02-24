@@ -80,11 +80,11 @@ class BotService {
     let sumCurrentPrice = 0;
 
     for (const c of coins) {
-      if (!c.active) {
-        sumInvestments += c.investment;
-        sumCurrentPrice += c.closed ?? 0;
-        continue;
-      }
+      // if (!c.active) {
+      //   sumInvestments += c.investment;
+      //   sumCurrentPrice += c.closed ?? 0;
+      //   continue;
+      // }
 
       sumInvestments += c.investment;
       sumCurrentPrice += c.currentPrice!;
