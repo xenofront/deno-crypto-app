@@ -80,9 +80,6 @@ class BotService {
     let sumCurrentPrice = 0;
 
     for (const c of coins) {
-      if (c.id === "exponential-capital-2") {
-        console.log(c);
-      }
       if (!c.active) {
         sumInvestments += c.investment;
         sumCurrentPrice += c.closed ?? 0;
@@ -121,7 +118,7 @@ D% ${
         >,
       );
       res += `
-👉 <b>HIDDEN EXPENSES</b>
+🔶 <b>HIDDEN EXPENSES</b>
 CS ${this._toCurrency(expenses.CS)}
 II ${this._toCurrency(expenses.II)}
 D ${this._toCurrency(expenses.CS - expenses.II)}
@@ -134,8 +131,26 @@ D% ${
       `;
     }
 
+    const closedAssets = coins.filter((coin) => coin.closed);
+
+    if (closedAssets.length) {
+      const closed = this._getClosedAssets(closedAssets);
+      res += `
+🔶 <b>CLOSED</b>
+CS ${this._toCurrency(closed.CS)}
+II ${this._toCurrency(closed.II)}
+D ${this._toCurrency(closed.CS - closed.II)}
+D% ${
+        Math.round((closed.CS - closed.II) / closed.II * 100)
+          .toFixed(
+            1,
+          )
+      }
+      `;
+    }
+
     res += `
-👉 <b>SUMMARY</b>
+🔶 <b>SUMMARY</b>
 CS ${this._toCurrency(sumCurrentPrice)}
 II ${this._toCurrency(sumInvestments)}
 D ${this._toCurrency(sumCurrentPrice - sumInvestments)}
@@ -166,6 +181,17 @@ D% ${
     return hiddenCoins.reduce((acc, curr) => {
       return {
         CS: acc.CS += curr.currentPrice,
+        II: acc.II += curr.investment,
+      };
+    }, { CS: 0, II: 0 });
+  }
+
+  private _getClosedAssets(
+    hiddenCoins: Array<ICoin>,
+  ) {
+    return hiddenCoins.reduce((acc, curr) => {
+      return {
+        CS: acc.CS += curr.closed!,
         II: acc.II += curr.investment,
       };
     }, { CS: 0, II: 0 });
