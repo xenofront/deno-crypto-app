@@ -59,15 +59,15 @@ class BotService {
     const tokens: ITokenRes = await res.json();
     console.log(tokens);
     return coins.map((x) => {
-      const currentPrice =
-        Math.round((tokens[x.symbol.toLowerCase()].usd * x.coinSum) * 100) /
+      const currentSymbolPrice = tokens[x.id.toLowerCase()].usd;
+      const currentPrice = Math.round((currentSymbolPrice * x.coinSum) * 100) /
         100;
 
       return {
         ...x,
         coinSum: (x.coinSum * 100) / 100,
         currentPrice,
-        currentSymbolPrice: tokens[x.symbol.toLowerCase()].usd,
+        currentSymbolPrice,
       };
     });
   }
