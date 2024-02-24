@@ -46,10 +46,11 @@ class BotService {
     Array<ICoin & { currentPrice: number; currentSymbolPrice: number }>
   > {
     const coins: ICoin[] = JSON.parse(Deno.env.get("COINS") as string);
-    const ids = coins.filter((coin) => coin.active === true).map((coin) =>
-      coin.name
-    ).join(",");
-    console.log(ids);
+    const ids = coins
+      .filter((coin) => coin.active)
+      .map((coin) => coin.symbol)
+      .join(",");
+
     const coinGeckoUri = Deno.env.get("COIN_GECKO_URI");
 
     const res = await fetch(
