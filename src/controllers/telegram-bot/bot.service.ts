@@ -78,7 +78,6 @@ class BotService {
     let res = "";
     let sumInvestments = 0;
     let sumCurrentPrice = 0;
-    console.log(coins);
 
     for (const c of coins) {
       if (!c.active) {
@@ -87,12 +86,12 @@ class BotService {
         continue;
       }
 
-      sumInvestments += c.investment;
-      sumCurrentPrice += c.currentPrice!;
+      // sumInvestments += c.investment;
+      // sumCurrentPrice += c.currentPrice!;
 
-      if (c.hidden) {
-        continue;
-      }
+      // if (c.hidden) {
+      //   continue;
+      // }
 
       res += `
 👉 <b>${c.id.toUpperCase()}</b>
