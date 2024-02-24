@@ -39,7 +39,7 @@ class BotService {
   }
 
   private async _getCurrentState(): Promise<
-    Array<ICoin & { currentPrice: number; currentSymbolPrice: number }>
+    Array<ICoin & { currentPrice?: number; currentSymbolPrice?: number }>
   > {
     const coins: ICoin[] = JSON.parse(Deno.env.get("COINS") as string);
     const ids = coins
@@ -54,7 +54,7 @@ class BotService {
     );
     const tokens: ITokenRes = await res.json();
 
-    return coins.filter((x) => x.active).map((x) => {
+    const activeCoins = coins.filter((x) => x.active).map((x) => {
       const currentSymbolPrice = tokens[x.id].usd;
       const currentPrice = Math.round((currentSymbolPrice * x.coinSum) * 100) /
         100;
@@ -66,10 +66,14 @@ class BotService {
         currentSymbolPrice,
       };
     });
+
+    return [...coins.filter((c) => !c.active), ...activeCoins];
   }
 
   private _convertToHtml(
-    coins: Array<ICoin & { currentPrice: number; currentSymbolPrice: number }>,
+    coins: Array<
+      ICoin & { currentPrice?: number; currentSymbolPrice?: number }
+    >,
   ) {
     let res = "";
     let sumInvestments = 0;
@@ -83,7 +87,7 @@ class BotService {
       }
 
       sumInvestments += c.investment;
-      sumCurrentPrice += c.currentPrice;
+      sumCurrentPrice += c.currentPrice!;
 
       if (c.hidden) {
         continue;
@@ -91,14 +95,14 @@ class BotService {
 
       res += `
 👉 <b>${c.id.toUpperCase()}</b>
-CS ${this._toCurrency(c.currentPrice)}
+CS ${this._toCurrency(c.currentPrice!)}
 COINS ${new Intl.NumberFormat("el-GR").format(c.coinSum)}
 II ${this._toCurrency(c.investment)}
-CP ${c.currentSymbolPrice.toFixed(4)}
+CP ${c.currentSymbolPrice!.toFixed(4)}
 IP ${(c.investment / c.coinSum).toFixed(4)}
-D ${this._toCurrency(Math.round(c.currentPrice - c.investment))}
+D ${this._toCurrency(Math.round(c.currentPrice! - c.investment))}
 D% ${
-        (Math.round(c.currentPrice - c.investment) / c.investment * 100)
+        (Math.round(c.currentPrice! - c.investment) / c.investment * 100)
           .toFixed(
             1,
           )
@@ -108,7 +112,11 @@ D% ${
     const hiddenExpenses = coins.filter((coin) => coin.hidden);
 
     if (hiddenExpenses.length) {
-      const expenses = this._getHiddenExpenses(hiddenExpenses);
+      const expenses = this._getHiddenExpenses(
+        hiddenExpenses as Array<
+          ICoin & { currentPrice: number; currentSymbolPrice: number }
+        >,
+      );
       res += `
 👉 <b>HIDDEN EXPENSES</b>
 CS ${this._toCurrency(expenses.CS)}
