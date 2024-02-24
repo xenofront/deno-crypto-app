@@ -57,7 +57,7 @@ class BotService {
       `${coinGeckoUri}price?ids=${ids}&vs_currencies=usd`,
     );
     const tokens: ITokenRes = await res.json();
-
+    console.log(tokens);
     return coins.map((x) => {
       const currentPrice =
         Math.round((tokens[x.symbol.toLowerCase()].usd * x.coinSum) * 100) /
