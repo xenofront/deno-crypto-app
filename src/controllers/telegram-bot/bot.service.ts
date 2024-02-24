@@ -118,7 +118,7 @@ D% ${
         >,
       );
       res += `
-🔶 <b>HIDDEN EXPENSES</b>
+🔶 <b>LOSSES</b>
 CS ${this._toCurrency(expenses.CS)}
 II ${this._toCurrency(expenses.II)}
 D ${this._toCurrency(expenses.CS - expenses.II)}
